@@ -5,14 +5,17 @@ The goal is to provide a smooth and intuitive experience for users to fill out c
 
 ---
 
+## Install dependeces:
+
+```bash
+npx expo start
+```
+
+---
+
 ## ▶ Run the project
 To start the development server, run:
 
 ```bash
-npm install
-
-
----
-
-```bash
 npx expo start
+```
