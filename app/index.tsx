@@ -1,7 +1,7 @@
-import { FormStepOne } from "../screens/FormStepOne";
+import Routes from "@/routes";
 
 export default function Index() {
   return (
-    <FormStepOne />
+    <Routes />
   );
 }

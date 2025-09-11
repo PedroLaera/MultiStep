@@ -1,58 +1,56 @@
-import { useNavigation } from 'expo-router';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input/input';
 
-
-export function FormStepOne() {
-    const { navigate } = useNavigation();
-
+export function FormStepThree() {
     const { control, handleSubmit, formState: { errors } } = useForm();
+    console.log(errors);
     function handleNxtStep(data: any) {
-        navigate("FormStepTwo")
+        console.log(data);
     }
 
-    const emailRef = useRef<TextInput>(null);  
+    const passwordRef = useRef<TextInput>(null);  
 
     return (
         <View style={style.container}>
-            <Text>Create Account</Text>
+            <Text>Passwordt</Text>
             <Input
-                icon="user"
-                error={errors.name?.message}
+                icon="key"
+                error={errors.password?.message}
                 formProps={{
                     control,
-                    name: 'name',
+                    name: 'senha',
                     rules: { 
-                        required: 'Nome é obrigatório' 
+                        required: 'Senha é obrigatório', 
+                        minLength: {
+                            value: 6,
+                            message: 'Senha precisa ter no minimo 6 caracteres'
+                        }
                     },
+
                 }}
                 inputProps={{
-                    placeholder: 'Nome ',
-                    onSubmitEditing: () => emailRef.current?.focus(),
+                    placeholder: 'Senha ',
+                    onSubmitEditing: () => passwordRef.current?.focus(),
                     returnKeyType: 'next',
+                    secureTextEntry: true
+
                 }}
             />
             <Input
-                ref={emailRef}
-                icon="mail"
-                error={errors.email?.message}   
+                ref={passwordRef}
+                icon="key"
+                error={errors.passwordConfirm?.message}   
                 formProps={{
                     control,
-                    name: 'email',
-                    rules: { 
-                        required: 'E-mail é obrigatório',
-                        pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: 'E-mail inválido',
-                        }
-                    },
+                    name: 'Confirmar Senha',
                 }}
                 inputProps={{
-                    placeholder: 'E-mail ',
+                    placeholder: 'Confirmar Senha',
                     onSubmitEditing: handleSubmit(handleNxtStep),
+                    secureTextEntry: true
                 }}
             />
             <Button title='Next' onPress={handleSubmit(handleNxtStep)} />

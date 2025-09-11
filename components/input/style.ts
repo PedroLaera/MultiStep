@@ -4,6 +4,7 @@ export const style = StyleSheet.create({
   container: {
     width: "100%",
   },
+
   group: {
     width: "100%",
     height: 56,
@@ -25,5 +26,10 @@ export const style = StyleSheet.create({
     flex: 1,
     paddingLeft: 16,
     fontSize: 16,
+  },
+  error: {
+    color: "#c83852ff",
+    fontSize: 12,
+    marginTop: 7,
   },
 });

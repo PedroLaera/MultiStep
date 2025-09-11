@@ -5,53 +5,55 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input/input';
 
-
-export function FormStepOne() {
+export function FormStepTwo() {
     const { navigate } = useNavigation();
 
     const { control, handleSubmit, formState: { errors } } = useForm();
+
     function handleNxtStep(data: any) {
-        navigate("FormStepTwo")
+        navigate("FormStepThree")
     }
 
-    const emailRef = useRef<TextInput>(null);  
+    const phoneRef = useRef<TextInput>(null);  
 
     return (
         <View style={style.container}>
-            <Text>Create Account</Text>
+            <Text>Information aditional</Text>
             <Input
-                icon="user"
-                error={errors.name?.message}
+                
+                icon="calendar"
+                error={errors.birth?.message}
                 formProps={{
                     control,
-                    name: 'name',
+                    name: 'birth',
                     rules: { 
-                        required: 'Nome é obrigatório' 
-                    },
-                }}
-                inputProps={{
-                    placeholder: 'Nome ',
-                    onSubmitEditing: () => emailRef.current?.focus(),
-                    returnKeyType: 'next',
-                }}
-            />
-            <Input
-                ref={emailRef}
-                icon="mail"
-                error={errors.email?.message}   
-                formProps={{
-                    control,
-                    name: 'email',
-                    rules: { 
-                        required: 'E-mail é obrigatório',
+                        required: 'Data de Nascimento é obrigatório',
                         pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: 'E-mail inválido',
+                            value: /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/,
+                            message: 'Data de Nascimento inválida',
                         }
                     },
                 }}
                 inputProps={{
-                    placeholder: 'E-mail ',
+                    placeholder: 'Data de Nascimento',
+                    onSubmitEditing: () => phoneRef.current?.focus(),
+                    returnKeyType: 'next',
+                }}
+            />
+            <Input
+                ref={phoneRef}
+                icon="phone"
+                error={errors.phone?.message}   
+                formProps={{
+                    control,
+                    name: 'phone',
+                    rules: { 
+                        required: 'Telefone é obrigatório', 
+                        value: /^[0-9]{2} [0-9]{5}-[0-9]{4}$/,
+                    },
+                }}
+                inputProps={{
+                    placeholder: 'Telefone ',
                     onSubmitEditing: handleSubmit(handleNxtStep),
                 }}
             />
