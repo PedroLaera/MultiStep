@@ -1,16 +1,18 @@
+import { useAccountForm } from '@/hooks/useAccountForm';
 import { useNavigation } from 'expo-router';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input/input';
-
+import { AccountProps } from '../../contexts/AccountFromContexto';
 
 export function FormStepOne() {
+    const { updateFormData } = useAccountForm();
     const { navigate } = useNavigation();
-
-    const { control, handleSubmit, formState: { errors } } = useForm();
-    function handleNxtStep(data: any) {
+    const { control, handleSubmit, formState: { errors } } = useForm<AccountProps>();
+    function handleNxtStep(data: AccountProps) {
+        updateFormData(data);
         navigate("FormStepTwo")
     }
 
@@ -21,7 +23,7 @@ export function FormStepOne() {
             <Text>Create Account</Text>
             <Input
                 icon="user"
-                error={errors.name?.message}
+                error={errors.nome?.message }
                 formProps={{
                     control,
                     name: 'name',

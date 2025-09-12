@@ -1,21 +1,26 @@
+import { useNavigation } from '@react-navigation/native';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input/input';
+import { AccountProps } from '../../contexts/AccountFromContexto';
+import { useAccountForm } from '../../hooks/useAccountForm';
 
 export function FormStepThree() {
-    const { control, handleSubmit, formState: { errors } } = useForm();
-    console.log(errors);
-    function handleNxtStep(data: any) {
-        console.log(data);
+        const { updateFormData } = useAccountForm();
+        const { navigate } = useNavigation();
+    const { control, handleSubmit, formState: { errors } } = useForm<AccountProps>();
+    function handleNxtStep(data: AccountProps) {
+        updateFormData(data);
+        navigate("AccountData")
     }
 
     const passwordRef = useRef<TextInput>(null);  
 
     return (
         <View style={style.container}>
-            <Text>Passwordt</Text>
+            <Text>Password</Text>
             <Input
                 icon="key"
                 error={errors.password?.message}

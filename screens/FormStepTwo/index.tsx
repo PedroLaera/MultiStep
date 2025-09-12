@@ -4,13 +4,15 @@ import { useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input/input';
+import { AccountProps } from '../../contexts/AccountFromContexto';
+import { useAccountForm } from '../../hooks/useAccountForm';
 
 export function FormStepTwo() {
     const { navigate } = useNavigation();
-
-    const { control, handleSubmit, formState: { errors } } = useForm();
-
-    function handleNxtStep(data: any) {
+    const { updateFormData } = useAccountForm();
+    const { control, handleSubmit, formState: { errors } } = useForm<AccountProps>();
+    function handleNxtStep(data: AccountProps) {
+        updateFormData(data);
         navigate("FormStepThree")
     }
 
